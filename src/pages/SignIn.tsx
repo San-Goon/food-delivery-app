@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import React, {useCallback, useRef, useState} from 'react';
-import {RootStackParamList} from '../../App';
+import {RootStackParamList} from '../../AppInner';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
