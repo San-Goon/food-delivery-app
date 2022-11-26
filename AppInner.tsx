@@ -11,6 +11,12 @@ import {useSelector} from 'react-redux';
 import {RootState} from './src/store/reducer';
 import {useEffect} from 'react';
 import useSocket from './src/hooks/useSocket';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import axios, {AxiosError} from 'axios';
+import Config from 'react-native-config';
+import {useAppDispatch} from './src/store';
+import userSlice from './src/slices/user';
+import {Alert} from 'react-native';
 
 export type LoggedInParamList = {
   Orders: undefined;
@@ -31,6 +37,43 @@ function AppInner() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
 
   const [socket, disconnect] = useSocket();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const getTokenAndRefresh = async () => {
+      try {
+        const token = await EncryptedStorage.getItem('refreshToken');
+        if (!token) {
+          return;
+        }
+        const response = await axios.post(
+          `${Config.API_URL}/refreshToken`,
+          {},
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        dispatch(
+          userSlice.actions.setUser({
+            name: response.data.data.name,
+            email: response.data.data.email,
+            accessToken: response.data.data.accessToken,
+          }),
+        );
+      } catch (error) {
+        const errorResponse = (error as AxiosError<{code: string}>).response;
+        if (errorResponse?.data.code === 'expired') {
+          Alert.alert('알림', '세션이 만료되었습니다. 다시 로그인 해 주세요.');
+        } else {
+          console.error(error);
+        }
+      }
+    };
+    getTokenAndRefresh();
+  }, [dispatch]);
 
   useEffect(() => {
     const callback = (data: any) => {
