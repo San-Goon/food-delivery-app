@@ -16,7 +16,6 @@ const userSlice = createSlice({
       state.accessToken = action.payload.accessToken;
     },
   },
-  extraReducers: builder => {},
 });
 
 export default userSlice;
