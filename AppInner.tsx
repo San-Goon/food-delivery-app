@@ -33,19 +33,19 @@ function AppInner() {
   const [socket, disconnect] = useSocket();
 
   useEffect(() => {
-    const helloCallback = (data: any) => {
+    const callback = (data: any) => {
       console.log(data);
     };
     if (socket && isLoggedIn) {
-      console.log(socket);
-      socket.emit('login', 'hello');
-      socket.on('hello', helloCallback);
+      socket.emit('acceptOrder', 'hello');
+      socket.on('order', callback);
+
+      return () => {
+        if (socket) {
+          socket.off('order', callback);
+        }
+      };
     }
-    return () => {
-      if (socket) {
-        socket.off('hello', helloCallback);
-      }
-    };
   }, [isLoggedIn, socket]);
 
   useEffect(() => {
