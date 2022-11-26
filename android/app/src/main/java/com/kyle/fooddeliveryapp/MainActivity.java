@@ -1,4 +1,4 @@
-package com.fooddeliveryapp;
+package com.kyle.fooddeliveryapp;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
