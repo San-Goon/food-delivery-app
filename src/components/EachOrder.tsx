@@ -36,14 +36,16 @@ const EachOrder = ({item}: PropsType) => {
         {headers: {authorization: `Bearer ${accessToken}`}},
       );
       dispatch(orderSlice.actions.acceptOrder(item.orderId));
+      setLoading(false);
       navigation.navigate('Delivery');
     } catch (error) {
       const errorResponse = (error as AxiosError<{message: string}>).response;
       if (errorResponse?.status === 400) {
         Alert.alert('알림', errorResponse.data.message);
         dispatch(orderSlice.actions.rejectOrder(item.orderId));
+      } else {
+        console.error(error);
       }
-    } finally {
       setLoading(false);
     }
   }, [navigation, accessToken, dispatch, item.orderId]);
