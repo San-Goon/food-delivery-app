@@ -54,7 +54,7 @@ function AppInner() {
           if (error.response.data.code === 'expired') {
             const refreshToken = await EncryptedStorage.getItem('refreshToken');
             const {data} = await axios.post(
-              `${Config.API_URL}`,
+              `${Config.API_URL}/refreshToken`,
               {},
               {
                 headers: {
