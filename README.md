@@ -36,11 +36,9 @@ npm run android # android studio setting이 되어있어야 합니다.
 
 ## 사용한 기술 스택
 - TypeScript
-- Node.js
 - React Native
 - Soket.io
 - Redux
-- React Hooks
 - React Navigation
 - React Native Elements
 - Axios

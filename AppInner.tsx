@@ -104,7 +104,9 @@ function AppInner() {
         }
       }
     };
-    getTokenAndRefresh();
+    if (isLoggedIn) {
+      getTokenAndRefresh();
+    }
   }, [dispatch]);
 
   useEffect(() => {
