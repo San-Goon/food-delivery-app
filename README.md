@@ -2,7 +2,7 @@
 
 **Food Delivery App**은 배달 라이더를 위한 주문 확인 및 배차 앱 입니다.
 
-**Food Delivery App**으로 수많은 배차를 받고 길안내 서비스 까지 함께 받아보세요🥰
+**Food Delivery App**으로 수 많은 배차를 받고 길안내 서비스 까지 함께 받아보세요🥰
 
 
 </br>
